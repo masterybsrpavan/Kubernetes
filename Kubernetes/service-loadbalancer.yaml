@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx 
+  labels:  
+    type: web 
+spec: 
+  selector: 
+    app: front-end
+  type: LoadBalancer
+  ports: 
+  - name: access-end 
+    port: 8080
+    targetPort: 80 

@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Service
+metadata: 
+  name: ui-svc
+spec:
+  selector: 
+    app: ui
+  type: NodePort
+  ports:
+  - name: front-endport
+    port: 8080
+    targetPort: 8080
+    
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-ui
+  labels:
+    app: react-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ui
+  template:
+    metadata:
+      labels:
+        app: ui
+    spec:
+      containers:
+        - name: react-ui
+          image: masterybsr/ui-training:1.0
+          imagePullPolicy: "IfNotPresent"
